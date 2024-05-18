@@ -10,19 +10,32 @@ const userModel = require("../models/user-model")
 
 router.get("/get",(req,res)=>{
 
-    res.send("User get age")
+    userModel.find().then(
+        response=>res.send(response)
+    ).catch(
+        err=>console.log(err)
+    )
+})
+
+router.get("/get/:id",(req,res)=>{
+
+    userModel.findById(req.params.id).then(
+        response=>res.send(response)
+    ).catch(
+        err=>console.log(err)
+    )
 })
 
 router.post("/post",(req,res)=>{
     const newUser = new userModel(req.body)
 
     newUser.save().then(
-        response=>console.log(response)
+        response=>res.send(response)
     ).catch(
         err=>console.log(err)
     )
 
-    res.send("user post page")
+    
 })
 
 module.exports = router
