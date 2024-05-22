@@ -2,7 +2,7 @@ const moongose = require("mongoose")
 const { type } = require("os")
 
 const userSchema = new moongose.Schema({
-    userame:{
+    username:{
         type:String,
         required:true
     },
@@ -28,6 +28,7 @@ const userSchema = new moongose.Schema({
 
 })
 
-const userModel = moongose.model("user",userSchema)
+
+const userModel = moongose.model("users",userSchema)
 
 module.exports = userModel

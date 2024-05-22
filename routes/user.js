@@ -6,36 +6,12 @@ const bodyParser = require("body-parser")
 
 router.use(bodyParser.json())
 
-const userModel = require("../models/user-model")
 
-router.get("/get",(req,res)=>{
+const {signUp,getUsers} = require("../controller/auth-controller")
 
-    userModel.find().then(
-        response=>res.send(response)
-    ).catch(
-        err=>console.log(err)
-    )
-})
 
-router.get("/get/:id",(req,res)=>{
+router.post("/signup",signUp)
+router.get("/get",getUsers)
 
-    userModel.findById(req.params.id).then(
-        response=>res.send(response)
-    ).catch(
-        err=>console.log(err)
-    )
-})
-
-router.post("/post",(req,res)=>{
-    const newUser = new userModel(req.body)
-
-    newUser.save().then(
-        response=>res.send(response)
-    ).catch(
-        err=>console.log(err)
-    )
-
-    
-})
 
 module.exports = router
