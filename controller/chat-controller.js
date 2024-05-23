@@ -1,5 +1,4 @@
 const chatModel = require("../models/chat-model")
-const userModel = require("../models/user-model")
 
 exports.postChat = async(req,res)=>{   
 
@@ -14,10 +13,7 @@ exports.postChat = async(req,res)=>{
 
 exports.postMessage = async(req,res)=>{
 
-    const {_id,message} = req.body
-
-    const chat = await chatModel.findOne({_id})
-    console.log(chat)
+    const {_id,message} = req.body   
     
     
 
@@ -26,8 +22,6 @@ exports.postMessage = async(req,res)=>{
     ).catch(
         err=>console.log(err)
     )
-
-    // res.send("update page")
 
     
 }
@@ -38,6 +32,17 @@ exports.getChats = async(req,res)=>{
     ).catch(
        err=>console.log(err)
     )
+}
+
+
+exports.deleteMessage = async(req,res)=>{
+
+    chatModel.findByIdAndUpdate(req.params.id,{'$pull':{'messages': {_id:req.params.msgid}}}).then(
+        res.send("delete page")
+    ).catch(
+        err=>console.log(err)
+    )
+
 }
 
 
